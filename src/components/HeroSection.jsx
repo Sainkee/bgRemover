@@ -102,7 +102,7 @@ export default function HeroSection() {
                   : chain
               }
               alt="processed img"
-              className="p-5 h-full w-full md:rounded-xl"
+              className="p-5 h-full object-contain w-full md:rounded-xl"
             />
           </div>
         </div>
