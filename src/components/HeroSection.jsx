@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import hero_1 from "../assets/hero_1.png";
 import chain from "../assets/chain.png";
 import { removebg } from "./APIManeger";
+import loader from "../assets/i3.png";
 
 const Header = () => {
   return (
@@ -19,6 +20,7 @@ const Header = () => {
 export default function HeroSection() {
   const [uploadImg, setUploadImg] = useState(null);
   const [processedImg, setProcessedImg] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleUploadClick = (e) => {
     const file = e.target.files[0];
@@ -31,7 +33,9 @@ export default function HeroSection() {
   };
 
   const handleRemoveBg = async () => {
+    if (!uploadImg) return toast.error("Image not uploaded!", { theme: "colored" });
     try {
+      setLoading(true);
       const data = new FormData();
       data.append("image_file", uploadImg);
       data.append("size", "auto");
@@ -40,9 +44,12 @@ export default function HeroSection() {
       // const array = [...typedArray];
       setProcessedImg(blob);
       toast.success("Background removed!", { theme: "colored" });
+      setLoading(false);
     } catch (error) {
-      toast.error("Failed to remove background", { theme: "colored" });
-      console.log(error);
+      toast.error(`Failed to remove background Reason Behind ${error} `, {
+        theme: "colored",
+      });
+      setLoading(false);
     }
   };
 
@@ -87,7 +94,13 @@ export default function HeroSection() {
         <div className="w-full text-2xl gap-3 md:text-3xl mt-[4rem] items-center md:mt-[0rem] flex uppercase flex-col justify-center md:w-1/2">
           <div className="h-[60vh] ">
             <img
-              src={processedImg ? URL.createObjectURL(processedImg) : chain}
+              src={
+                processedImg
+                  ? URL.createObjectURL(processedImg)
+                  : loading
+                  ? loader
+                  : chain
+              }
               alt="processed img"
               className="p-5 h-full w-full md:rounded-xl"
             />
