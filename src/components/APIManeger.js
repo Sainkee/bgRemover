@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const KEY = "1DLnANY7fvjpLAVnA2a6deh8";
+const KEY = "5sMwMRqdvGwq6buHwVPnay8P";
 
 export const removebg = async (formData) => {
   let Val;

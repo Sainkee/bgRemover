@@ -33,7 +33,8 @@ export default function HeroSection() {
   };
 
   const handleRemoveBg = async () => {
-    if (!uploadImg) return toast.error("Image not uploaded!", { theme: "colored" });
+    if (!uploadImg)
+      return toast.error("Image not uploaded!", { theme: "colored" });
     try {
       setLoading(true);
       const data = new FormData();
@@ -41,6 +42,7 @@ export default function HeroSection() {
       data.append("size", "auto");
       const res = await removebg(data);
       const blob = new Blob([res]);
+
       // const array = [...typedArray];
       setProcessedImg(blob);
       toast.success("Background removed!", { theme: "colored" });
